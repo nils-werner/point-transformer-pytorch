@@ -33,6 +33,7 @@ class PointTransformerLayer(nn.Module):
         self,
         *,
         dim,
+        pos_dim=3,
         pos_mlp_hidden_dim = 64,
         attn_mlp_hidden_mult = 4,
         num_neighbors = None
@@ -43,7 +44,7 @@ class PointTransformerLayer(nn.Module):
         self.to_qkv = nn.Linear(dim, dim * 3, bias = False)
 
         self.pos_mlp = nn.Sequential(
-            nn.Linear(3, pos_mlp_hidden_dim),
+            nn.Linear(pos_dim, pos_mlp_hidden_dim),
             nn.ReLU(),
             nn.Linear(pos_mlp_hidden_dim, dim)
         )
